@@ -1,0 +1,31 @@
+.field *[data-gridfield-cell-column] input.text,
+.field *[data-gridfield-cell-column] textarea,
+.field *[data-gridfield-cell-column] .TreeDropdownField {
+	background: linear-gradient(rgba(234, 234, 234, .25), rgba(255, 255, 255, .25) 10%) repeat scroll 0 0 / 100% auto rgba(255, 255, 255, .25);
+	border-color: rgba(179, 179, 179, .2);
+	transition: border 0.2s ease-in 0s, background 0.2s ease-in 0s;
+}
+
+.field *[data-gridfield-cell-dirty="1"] input.text,
+.field *[data-gridfield-cell-dirty="1"] textarea,
+.field *[data-gridfield-cell-dirty="1"] .TreeDropdownField,
+.field *[data-gridfield-cell-column] input.text:focus,
+.field *[data-gridfield-cell-column] textarea:focus,
+.field *[data-gridfield-cell-column] .TreeDropdownField:focus,
+.field *[data-gridfield-cell-column] input.text:hover,
+.field *[data-gridfield-cell-column] textarea:hover,
+.field *[data-gridfield-cell-column] .TreeDropdownField:hover {
+	background: linear-gradient(rgba(234, 234, 234, 1), rgba(255, 255, 255, 1) 10%) repeat scroll 0 0 / 100% auto rgba(255, 255, 255, 1);
+	border-color: rgba(179, 179, 179, 1);
+	transition: border 0.2s ease-in 0s, background 0.2s ease-in 0s;
+}
+
+.gridfield-button-save {
+	display:none;
+	transition: display 0.2s ease-in 0s;
+}
+
+.dirty .gridfield-button-save {
+	display:inline-block;
+	transition: display 0.2s ease-in 0s;
+}
