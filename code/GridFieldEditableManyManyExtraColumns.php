@@ -230,7 +230,7 @@ class GridFieldEditableManyManyExtraColumns implements GridField_ColumnProvider,
 				// ignore actions here
 				if($column == 'Actions') continue;
 
-				if(isset($extrafieldvalues[$column])) {
+				if(in_array($column, array_keys($extrafieldvalues))) {
 					if($data[$gridField->Name]["\"$column\""][$record->ID] != $extrafieldvalues[$column]) {
 						$extrafieldvalues[$column] = $data[$gridField->Name]["\"$column\""][$record->ID];
 						$readd = true;
