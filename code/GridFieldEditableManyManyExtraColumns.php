@@ -141,7 +141,7 @@ class GridFieldEditableManyManyExtraColumns implements GridField_ColumnProvider,
 
 			preg_match("/(\w+)(\(.*\))?/i", $type, $matches);
 			$dbclass = $matches[1];
-			$fieldname = "{$gridField->Name}[\"{$columnName}\"][{$record->ID}]";
+			$fieldname = "{$gridField->Name}['{$columnName}'][{$record->ID}]";
 			$attr1 = $attr2 = $attr3 = null;
 			if(isset($matches[2]) && preg_match_all('/\'[^\']+\'|[^,]+/', trim($matches[2], "()"), $matches)) {
 				if(isset($matches[0][0])) $attr1 = trim($matches[0][0], " '");
@@ -230,13 +230,18 @@ class GridFieldEditableManyManyExtraColumns implements GridField_ColumnProvider,
 				// ignore actions here
 				if($column == 'Actions') continue;
 
+				if (!isset($data[$gridField->Name]["'$column'"]) || !isset($data[$gridField->Name]["'$column'"][$record->ID])) {
+					$data[$gridField->Name]["'$column'"][$record->ID] = null;
+				} else if (is_array($data[$gridField->Name]["'$column'"][$record->ID])) {
+					$data[$gridField->Name]["'$column'"][$record->ID] = implode(',',$data[$gridField->Name]["'$column'"][$record->ID]);
+				}
 				if(in_array($column, array_keys($extrafieldvalues))) {
-					if($data[$gridField->Name]["\"$column\""][$record->ID] != $extrafieldvalues[$column]) {
-						$extrafieldvalues[$column] = $data[$gridField->Name]["\"$column\""][$record->ID];
+					if ($data[$gridField->Name]["'$column'"][$record->ID] != $extrafieldvalues[$column]) {
+						$extrafieldvalues[$column] = $data[$gridField->Name]["'$column'"][$record->ID];
 						$readd = true;
 					}
 				} else {
-					$record->$column = $data[$gridField->Name]["\"$column\""][$record->ID];
+					$record->$column = $data[$gridField->Name]["'$column'"][$record->ID];
 					$write = true;
 				}
 			}
